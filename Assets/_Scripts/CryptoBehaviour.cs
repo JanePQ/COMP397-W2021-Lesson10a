@@ -15,14 +15,14 @@ public enum CryptoState
 
 public class CryptoBehaviour : MonoBehaviour
 {
-    [Header("Line of Sight")] 
+    [Header("Line of Sight")]
     public bool HasLOS = false;
 
     public GameObject player;
     private NavMeshAgent agent;
     private Animator animator;
 
-    [Header("Attack")] 
+    [Header("Attack")]
     public float attackDistance;
     public PlayerBehaviour playerBehaviour;
     public float damageDelay = 1.0f;
@@ -48,9 +48,9 @@ public class CryptoBehaviour : MonoBehaviour
         }
 
 
-        if(HasLOS && distanceToPlayer < attackDistance && !isAttacking)
+        if (HasLOS && distanceToPlayer < attackDistance && !isAttacking)
         {
-                // could be an attack
+            // could be an attack
             animator.SetInteger("AnimState", (int)CryptoState.KICK);
             transform.LookAt(transform.position - player.transform.forward);
 
@@ -91,7 +91,7 @@ public class CryptoBehaviour : MonoBehaviour
     private IEnumerator kickBack()
     {
         yield return new WaitForSeconds(damageDelay);
-        
+
         var direction = Vector3.Normalize(player.transform.position - transform.position);
         playerBehaviour.controller.SimpleMove(direction * kickForce);
         StopCoroutine(kickBack());
